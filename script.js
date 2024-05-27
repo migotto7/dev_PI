@@ -1,15 +1,12 @@
-// Initialize the map
-var map = L.map('map').setView([20, 0], 2); // Set the initial view to the world map
+var map = L.map('map').setView([20, 0], 2);
 
-var markersById = {};
+var markersId = {};
 
-// Add the base map layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
     maxZoom: 18,
 }).addTo(map);
 
-// Define markers for the countries
 var markers = [
     { id: 'brazil', name: 'Brazil', coords: [-14.235, -51.925], img: './imgs/1.png' },
     { id: 'argentina', name: 'Argentina', coords: [-38.416, -63.616], img: './imgs/1.png'  },
@@ -19,11 +16,10 @@ var markers = [
     { id: 'japan', name: 'Japan', coords: [36.204, 138.252], img: './imgs/1.png'  }
 ];
 
-// Add markers to the map
 markers.forEach(marker => {
     var newMarker = L.marker(marker.coords).addTo(map);
     newMarker._leaflet_id = marker.id;
-    markersById[marker.id] = newMarker;
+    markersId[marker.id] = newMarker;
 
     /*newMarker.on("click", function(){
         console.log("marker", marker.name)
@@ -32,11 +28,11 @@ markers.forEach(marker => {
     })*/
 
     var popupContent = document.createElement('div');
-    popupContent.className = 'marker-popup-content';
+    popupContent.classList.add('popupContent');
 
     var image = document.createElement('img');
     image.src = marker.img;
-    image.className = 'marker-popup-image';
+    image.classList.add('popupImg');
     popupContent.appendChild(image);
 
     newMarker.bindPopup(popupContent);
